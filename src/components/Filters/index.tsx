@@ -2,13 +2,12 @@ import { useGlobalContext } from "../../context/GlobalContext";
 import "./styles.css";
 
 export default function Filters() {
-    const { tasks, handleSetTasks, handleSetFilter} = useGlobalContext();
+    const { tasks, handleSetFilter} = useGlobalContext();
     const pendingTasksQuantity = tasks.filter((task) => !task.done).length;
 
-    function handleUncheckAllCompletedTasks() {
-         const filteredTasks = tasks.map(task => task.done ? { ...task, done: false } : task);
-
-         handleSetTasks(filteredTasks);
+    function handleClearList() {
+        localStorage.clear();
+        window.location.reload();
     }
 
     return (
@@ -22,7 +21,7 @@ export default function Filters() {
                 <a href="#" onClick={() => handleSetFilter("done")}>Comprados</a>
             </div>
             <div>
-                <a href="#" onClick={handleUncheckAllCompletedTasks}>Limpar comprados</a>
+                <a href="#" onClick={() => handleClearList()}>Limpar Lista</a>
             </div>
         </li>
     )
